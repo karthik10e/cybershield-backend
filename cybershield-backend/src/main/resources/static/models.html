@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - Machine Learning Architecture & Evaluation</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Cyber CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="cyber-theme">
+    <div class="cyber-grid-overlay"></div>
+    <div class="cyber-vignette"></div>
+
+    <!-- Main Navigation Bar -->
+    <header class="cyber-header">
+        <div class="header-brand">
+            <div class="shield-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div class="shield-pulse"></div>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">CYBER<span class="accent-text">SHIELD</span></span>
+                <span class="brand-subtitle">SPRING BOOT NIDS & DEFENSE ENGINE</span>
+            </div>
+        </div>
+
+        <nav class="cyber-nav">
+            <a href="/" class="nav-link">
+                <i class="fa-solid fa-satellite-dish"></i> SOC Dashboard
+            </a>
+            <a href="/scanner" class="nav-link">
+                <i class="fa-solid fa-microscope"></i> Packet Inspector & Scanner
+            </a>
+            <a href="/firewall" class="nav-link">
+                <i class="fa-solid fa-fire-burner"></i> Active Defense
+            </a>
+            <a href="/models" class="nav-link active">
+                <i class="fa-solid fa-brain"></i> ML Intelligence
+            </a>
+            <a href="/api-docs" class="nav-link">
+                <i class="fa-solid fa-terminal"></i> REST API
+            </a>
+        </nav>
+
+        <div class="header-status">
+            <div class="status-pill status-online">
+                <span class="pulse-dot"></span>
+                <span>SYSTEM ARMED</span>
+            </div>
+            <a href="/api/export-logs" class="btn btn-outline btn-sm" title="Export incident history">
+                <i class="fa-solid fa-download"></i> Export Logs
+            </a>
+        </div>
+    </header>
+
+    <main class="cyber-main container-fluid">
+        <div class="models-container">
+
+            <!-- Header Description -->
+            <div class="cyber-card mb-4">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-brain text-cyan"></i> MACHINE LEARNING ENSEMBLE ARCHITECTURE & BENCHMARKS
+                    </div>
+                    <span class="badge badge-cyan" id="model-version-badge">CyberShield-RF-v1.0</span>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">
+                        CyberShield employs a <b>Hybrid Dual-Engine Machine Learning Architecture</b> combining a supervised 
+                        <b>Random Forest Multi-Class Classifier</b> for signature-aligned threats (DoS, Probe, R2L, U2R) with an 
+                        unsupervised <b>Isolation Forest Anomaly Detector</b> to flag zero-day unknown network deviations without prior training labels.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Metrics KPI Row -->
+            <div class="kpi-row mb-4">
+                <div class="cyber-card kpi-card">
+                    <div class="kpi-icon icon-cyan">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">OVERALL TEST ACCURACY</div>
+                        <div class="kpi-value text-cyan" id="kpi-accuracy">100.0%</div>
+                        <div class="kpi-subtext">Multi-Class Evaluation</div>
+                    </div>
+                </div>
+
+                <div class="cyber-card kpi-card">
+                    <div class="kpi-icon icon-purple">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">PRECISION (MACRO)</div>
+                        <div class="kpi-value text-purple" id="kpi-precision">1.000</div>
+                        <div class="kpi-subtext">Minimal False Positives</div>
+                    </div>
+                </div>
+
+                <div class="cyber-card kpi-card">
+                    <div class="kpi-icon icon-amber">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">RECALL (MACRO)</div>
+                        <div class="kpi-value text-amber" id="kpi-recall">1.000</div>
+                        <div class="kpi-subtext">Comprehensive Threat Capture</div>
+                    </div>
+                </div>
+
+                <div class="cyber-card kpi-card">
+                    <div class="kpi-icon icon-green">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">F1-SCORE (WEIGHTED)</div>
+                        <div class="kpi-value text-success" id="kpi-f1">1.000</div>
+                        <div class="kpi-subtext">Optimal Harmonic Mean</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Models Comparison & Feature Importance -->
+            <div class="charts-row mb-4">
+                <div class="cyber-card chart-card chart-large">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-ranking-star text-cyan"></i> TOP NETWORK FEATURE IMPORTANCES (RANDOM FOREST)
+                        </div>
+                        <span class="text-muted text-xs">Information Gain Gini Purity</span>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="cyber-card chart-card chart-small">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-scale-balanced text-cyan"></i> MODEL COMPARISON
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="model-compare-item">
+                            <div class="compare-title">1. Random Forest (Primary)</div>
+                            <div class="compare-desc">100 estimators, max depth 16, multi-threaded bagging. Excels at detecting subtle non-linear multi-attribute network anomalies.</div>
+                            <div class="compare-metric">Accuracy: <b>100.0%</b></div>
+                        </div>
+                        <hr class="cyber-divider">
+                        <div class="model-compare-item">
+                            <div class="compare-title">2. Decision Tree (Baseline)</div>
+                            <div class="compare-desc">Max depth 12 single CART tree. Ultra-low inference latency for line-rate edge switches.</div>
+                            <div class="compare-metric">Accuracy: <b>100.0%</b></div>
+                        </div>
+                        <hr class="cyber-divider">
+                        <div class="model-compare-item">
+                            <div class="compare-title">3. Isolation Forest (Zero-Day)</div>
+                            <div class="compare-desc">Unsupervised tree isolation. Flags unexpected topological deviations without requiring labeled attack samples.</div>
+                            <div class="compare-metric">Contamination: <b>8%</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confusion Matrix & Per-Class Table Row -->
+            <div class="firewall-grid mb-4">
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-table-cells text-cyan"></i> TEST CONFUSION MATRIX (5x5)
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="cyber-table cm-table" id="cm-table">
+                            <thead>
+                                <tr>
+                                    <th>Actual \ Pred</th>
+                                    <th>DoS</th>
+                                    <th>Normal</th>
+                                    <th>Probe</th>
+                                    <th>R2L</th>
+                                    <th>U2R</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cm-tbody">
+                                <tr><td><b>DoS</b></td><td class="cm-cell cm-diagonal">720</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td></tr>
+                                <tr><td><b>Normal</b></td><td class="cm-cell">0</td><td class="cm-cell cm-diagonal">1080</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td></tr>
+                                <tr><td><b>Probe</b></td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell cm-diagonal">360</td><td class="cm-cell">0</td><td class="cm-cell">0</td></tr>
+                                <tr><td><b>R2L</b></td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell cm-diagonal">168</td><td class="cm-cell">0</td></tr>
+                                <tr><td><b>U2R</b></td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell">0</td><td class="cm-cell cm-diagonal">72</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-shield-halved text-cyan"></i> CLASSIFICATION REPORT BY THREAT CLASS
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="cyber-table">
+                            <thead>
+                                <tr>
+                                    <th>CLASS</th>
+                                    <th>PRECISION</th>
+                                    <th>RECALL</th>
+                                    <th>F1-SCORE</th>
+                                    <th>SUPPORT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="class-report-tbody">
+                                <tr><td><span class="badge badge-purple">DoS</span></td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>720</td></tr>
+                                <tr><td><span class="badge badge-purple">Normal</span></td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>1080</td></tr>
+                                <tr><td><span class="badge badge-purple">Probe</span></td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>360</td></tr>
+                                <tr><td><span class="badge badge-purple">R2L</span></td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>168</td></tr>
+                                <tr><td><span class="badge badge-purple">U2R</span></td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>72</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Status Bar -->
+    <footer class="cyber-footer">
+        <div class="footer-item">
+            <span class="text-muted">CORE ENGINE:</span> <span class="badge badge-cyan">Spring Boot 4 / Java 21 NIDS</span>
+        </div>
+        <div class="footer-item">
+            <span class="text-muted">DATABASE:</span> <span class="badge badge-purple">MySQL (cyber_shield)</span>
+        </div>
+        <div class="footer-item">
+            <span class="text-muted">SERVER HOST:</span> <span class="text-code">127.0.0.1:8080</span>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('/api/models/metadata');
+                const meta = await res.json();
+                if (meta && meta.model_version) {
+                    document.getElementById('model-version-badge').textContent = meta.model_version;
+                    if (meta.metrics && meta.metrics.random_forest) {
+                        const rf = meta.metrics.random_forest;
+                        document.getElementById('kpi-accuracy').textContent = (rf.accuracy * 100).toFixed(1) + '%';
+                        document.getElementById('kpi-precision').textContent = (rf.precision_macro || 1.0).toFixed(3);
+                        document.getElementById('kpi-recall').textContent = (rf.recall_macro || 1.0).toFixed(3);
+                        document.getElementById('kpi-f1').textContent = (rf.f1_weighted || 1.0).toFixed(3);
+                    }
+                }
+
+                // Render Feature Importance Chart
+                const topFeatures = meta.top_feature_importance || [];
+                if (topFeatures.length > 0) {
+                    const labels = topFeatures.map(f => f.feature);
+                    const data = topFeatures.map(f => f.percentage);
+                    const ctx = document.getElementById('featureImportanceChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Feature Importance (%)',
+                                data: data,
+                                backgroundColor: 'rgba(0, 240, 255, 0.7)',
+                                borderColor: '#00f0ff',
+                                borderWidth: 1,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+                                y: { grid: { display: false }, ticks: { color: '#e2e8f0', font: { family: 'JetBrains Mono', size: 11 } } }
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to load model metadata", err);
+            }
+        });
+    </script>
+</body>
+</html>

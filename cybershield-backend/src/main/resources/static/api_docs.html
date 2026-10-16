@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - REST API Reference & Interactive Sandbox</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Cyber CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="cyber-theme">
+    <div class="cyber-grid-overlay"></div>
+    <div class="cyber-vignette"></div>
+
+    <!-- Main Navigation Bar -->
+    <header class="cyber-header">
+        <div class="header-brand">
+            <div class="shield-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div class="shield-pulse"></div>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">CYBER<span class="accent-text">SHIELD</span></span>
+                <span class="brand-subtitle">SPRING BOOT NIDS & DEFENSE ENGINE</span>
+            </div>
+        </div>
+
+        <nav class="cyber-nav">
+            <a href="/" class="nav-link">
+                <i class="fa-solid fa-satellite-dish"></i> SOC Dashboard
+            </a>
+            <a href="/scanner" class="nav-link">
+                <i class="fa-solid fa-microscope"></i> Packet Inspector & Scanner
+            </a>
+            <a href="/firewall" class="nav-link">
+                <i class="fa-solid fa-fire-burner"></i> Active Defense
+            </a>
+            <a href="/models" class="nav-link">
+                <i class="fa-solid fa-brain"></i> ML Intelligence
+            </a>
+            <a href="/api-docs" class="nav-link active">
+                <i class="fa-solid fa-terminal"></i> REST API
+            </a>
+        </nav>
+
+        <div class="header-status">
+            <div class="status-pill status-online">
+                <span class="pulse-dot"></span>
+                <span>SYSTEM ARMED</span>
+            </div>
+            <a href="/api/export-logs" class="btn btn-outline btn-sm" title="Export incident history">
+                <i class="fa-solid fa-download"></i> Export Logs
+            </a>
+        </div>
+    </header>
+
+    <main class="cyber-main container-fluid">
+        <div class="api-container">
+
+            <div class="cyber-card mb-4">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-code text-cyan"></i> CYBERSHIELD SPRING BOOT REST API SPECIFICATIONS
+                    </div>
+                    <span class="badge badge-cyan">v1.0.0 JSON REST API</span>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">
+                        CyberShield exposes high-performance HTTP endpoints for SIEM integration, remote packet ingestion, automated mitigation webhooks, URL phishing analysis, and programmatic threat queries.
+                    </p>
+                </div>
+            </div>
+
+            <!-- API Endpoints List & Sandbox -->
+            <div class="firewall-grid mb-4">
+                <!-- Endpoint Index -->
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-list-ol text-cyan"></i> AVAILABLE ENDPOINTS
+                        </div>
+                    </div>
+                    <div class="card-body api-endpoint-list">
+                        <div class="api-item" onclick="setApiSandbox('predict')">
+                            <span class="badge badge-post">POST</span>
+                            <span class="api-path">/api/predict</span>
+                            <span class="api-desc">Deep inspection on single packet JSON</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('stats')">
+                            <span class="badge badge-get">GET</span>
+                            <span class="api-path">/api/stats</span>
+                            <span class="api-desc">System telemetry & threat counters</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('packets')">
+                            <span class="badge badge-get">GET</span>
+                            <span class="api-path">/api/packets/recent</span>
+                            <span class="api-desc">Retrieve latest inspected packets</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('burst')">
+                            <span class="badge badge-post">POST</span>
+                            <span class="api-path">/api/simulate/burst</span>
+                            <span class="api-desc">Inject instant burst attack simulation</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('firewall_block')">
+                            <span class="badge badge-post">POST</span>
+                            <span class="api-path">/api/firewall/block</span>
+                            <span class="api-desc">Manually quarantine / block IP</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('firewall_list')">
+                            <span class="badge badge-get">GET</span>
+                            <span class="api-path">/api/firewall/list</span>
+                            <span class="api-desc">Retrieve active blocklist & audit logs</span>
+                        </div>
+                        <div class="api-item" onclick="setApiSandbox('url_check')">
+                            <span class="badge badge-post">POST</span>
+                            <span class="api-path">/api/url/check</span>
+                            <span class="api-desc">Website security & phishing heuristic checker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Sandbox -->
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-play text-cyan"></i> INTERACTIVE API TEST SANDBOX
+                        </div>
+                        <button class="btn btn-cyan btn-xs" onclick="executeSandboxRequest()">
+                            <i class="fa-solid fa-paper-plane"></i> Send Request
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-2">
+                            <label>Method & Endpoint:</label>
+                            <div class="d-flex gap-2">
+                                <select id="sandbox-method" class="cyber-input" style="width: 100px;">
+                                    <option value="POST">POST</option>
+                                    <option value="GET">GET</option>
+                                </select>
+                                <input type="text" id="sandbox-url" class="cyber-input" value="/api/predict">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Request JSON Payload:</label>
+                            <textarea id="sandbox-payload" class="cyber-input code-area" rows="8">{
+  "protocol_type": "tcp",
+  "service": "http",
+  "flag": "S0",
+  "src_bytes": 0,
+  "dst_bytes": 0,
+  "count": 450,
+  "srv_count": 420,
+  "serror_rate": 0.98,
+  "_meta": {
+    "src_ip": "45.33.32.18",
+    "dst_ip": "192.168.1.10",
+    "dst_port": 80,
+    "protocol": "TCP"
+  }
+}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Response Output:</label>
+                            <pre id="sandbox-response" class="code-block" style="max-height: 250px; overflow-y: auto;">Click "Send Request" to test...</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Status Bar -->
+    <footer class="cyber-footer">
+        <div class="footer-item">
+            <span class="text-muted">CORE ENGINE:</span> <span class="badge badge-cyan">Spring Boot 4 / Java 21 NIDS</span>
+        </div>
+        <div class="footer-item">
+            <span class="text-muted">DATABASE:</span> <span class="badge badge-purple">MySQL (cyber_shield)</span>
+        </div>
+        <div class="footer-item">
+            <span class="text-muted">SERVER HOST:</span> <span class="text-code">127.0.0.1:8080</span>
+        </div>
+    </footer>
+
+    <script>
+        const samplePayloads = {
+            'predict': {
+                method: 'POST',
+                url: '/api/predict',
+                payload: JSON.stringify({
+                    protocol_type: "tcp",
+                    service: "http",
+                    flag: "S0",
+                    src_bytes: 0,
+                    dst_bytes: 0,
+                    count: 450,
+                    srv_count: 420,
+                    serror_rate: 0.98,
+                    _meta: {
+                        src_ip: "45.33.32.18",
+                        dst_ip: "192.168.1.10",
+                        dst_port: 80,
+                        protocol: "TCP"
+                    }
+                }, null, 2)
+            },
+            'stats': {
+                method: 'GET',
+                url: '/api/stats',
+                payload: ''
+            },
+            'packets': {
+                method: 'GET',
+                url: '/api/packets/recent?limit=10',
+                payload: ''
+            },
+            'burst': {
+                method: 'POST',
+                url: '/api/simulate/burst',
+                payload: JSON.stringify({
+                    attack: "syn_flood",
+                    count: 15
+                }, null, 2)
+            },
+            'firewall_block': {
+                method: 'POST',
+                url: '/api/firewall/block',
+                payload: JSON.stringify({
+                    ip: "198.51.100.99",
+                    reason: "Automated SIEM Alert API Integration"
+                }, null, 2)
+            },
+            'firewall_list': {
+                method: 'GET',
+                url: '/api/firewall/list',
+                payload: ''
+            },
+            'url_check': {
+                method: 'POST',
+                url: '/api/url/check',
+                payload: JSON.stringify({
+                    url: "http://192.168.1.105/login-verify-account.xyz"
+                }, null, 2)
+            }
+        };
+
+        function setApiSandbox(endpointKey) {
+            const item = samplePayloads[endpointKey];
+            if (item) {
+                document.getElementById('sandbox-method').value = item.method;
+                document.getElementById('sandbox-url').value = item.url;
+                document.getElementById('sandbox-payload').value = item.payload;
+            }
+        }
+
+        async function executeSandboxRequest() {
+            const method = document.getElementById('sandbox-method').value;
+            const url = document.getElementById('sandbox-url').value;
+            const payloadText = document.getElementById('sandbox-payload').value;
+            const respBox = document.getElementById('sandbox-response');
+
+            respBox.textContent = 'Sending request to Spring Boot backend...';
+
+            try {
+                const opts = { method: method };
+                if (method === 'POST') {
+                    opts.headers = { 'Content-Type': 'application/json' };
+                    opts.body = payloadText;
+                }
+                const res = await fetch(url, opts);
+                const data = await res.json();
+                respBox.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                respBox.textContent = 'Error: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>
